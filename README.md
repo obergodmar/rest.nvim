@@ -4,7 +4,6 @@
 
 ![License](https://img.shields.io/github/license/NTBBloodbath/rest.nvim?style=for-the-badge)
 ![Neovim version](https://img.shields.io/badge/Neovim-0.9.2-5ba246?style=for-the-badge&logo=neovim)
-[![LuaRocks](https://img.shields.io/luarocks/v/teto/rest.nvim?style=for-the-badge&logo=lua&color=blue)](https://luarocks.org/modules/teto/rest.nvim)
 [![Discord](https://img.shields.io/badge/discord-join-7289da?style=for-the-badge&logo=discord)](https://discord.gg/AcXkuXKj7C)
 [![Matrix](https://img.shields.io/matrix/rest.nvim%3Amatrix.org?server_fqdn=matrix.org&style=for-the-badge&logo=element&label=Matrix&color=55b394&link=https%3A%2F%2Fmatrix.to%2F%23%2F%23rest.nvim%3Amatrix.org)](https://matrix.to/#/#rest.nvim:matrix.org)
 
@@ -48,50 +47,17 @@ CLI. For more information on this, please see this [blog post](https://amartin.c
 ### Dependencies
 
 - System-wide
-  - `Python` (only if you are using `packer.nvim` or `lazy.nvim` plus `luarocks.nvim` for the installation)
   - `cURL` development headers (usually called `libcurl-dev` or `libcurl-devel` depending on your Linux distribution)
 - Optional [can be changed, see config below](#default-configuration)
   - `jq`   (to format JSON output)
   - `tidy` (to format HTML output)
 
-> [!NOTE]
->
-> 1. Python will be unnecessary once `luarocks.nvim` gets rid of it as a dependency in the `go-away-python` branch.
->
-> 2. I will be working on making a binary rock of `Lua-cURL` so that the `cURL` development headers are not
-> necessary for the installation process.
-
-### [rocks.nvim](https://github.com/nvim-neorocks/rocks.nvim) (recommended)
-
-```vim
-:Rocks install rest.nvim
-```
-
-### [packer.nvim](https://github.com/wbthomason/packer.nvim)
-
-```lua
-use {
-  "rest-nvim/rest.nvim",
-  rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
-  config = function()
-    require("rest-nvim").setup()
-  end,
-}
-```
-
 ### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 {
-  "vhyrro/luarocks.nvim",
-  config = function()
-    require("luarocks").setup({})
-  end,
-},
-{
   "rest-nvim/rest.nvim",
   ft = "http",
-  dependencies = { "luarocks.nvim" },
   config = function()
     require("rest-nvim").setup()
   end,
@@ -100,8 +66,10 @@ use {
 
 > [!NOTE]
 >
-> There's a `build.lua` file in the repository that `lazy.nvim` will find and source to install the
-> luarocks dependencies for you by using `luarocks.nvim`.
+> Install lua-curl system wide with `sudo luarocks install lua-curl "CURL_INCDIR=/usr/include/x86_64-linux-gnu"`\
+> Install nvim-nio system wide with `sudo luarocks install nvim-nio`\
+> Install mimetypes system wide with `sudo luarocks install mimetypes`\
+> Install xml2lua system wide with `sudo luarocks install xml2lua`
 
 ### Default configuration
 
@@ -326,8 +294,7 @@ Here is a preview of the component working :)
 > semantic versioning and these help with automatic releases, please use this type of convention
 > when submitting changes to the project.
 
-Tests can be ran via `make test`. You must have `luarocks` installed and `lua5.1` or `luajit` to
-install dependencies. The test runner through `make test` will automatically install all required
+Tests can be ran via `make test`. The test runner through `make test` will automatically install all required
 dependencies.
 
 ## Related software
